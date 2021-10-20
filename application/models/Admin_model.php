@@ -79,6 +79,40 @@ class Admin_model extends CI_Model
     return $result->result();
   }
 
+  public function addcat($name)
+  {
+    $data = array(
+      'catname' => $name
+    );
+    $this->db->insert('categories', $data);
+    $this->session->set_flashdata('success', $name .  '     başarıyla eklendi!');
+    redirect(base_url('kategoriler'));
+  }
+
+  public function removecat($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('categories');
+    $this->session->set_flashdata('success', 'Kategori başarıyla silindi!');
+    redirect(base_url('kategoriler'));
+  }
+
+  public function savecat($name)
+  {
+    $id = $this->uri->segment(2);
+    $oldname = getcatname()->catname;
+    $this->db->set('catname', $name);
+    $this->db->where('catname', $oldname);
+    $this->db->update('works');
+
+    $this->db->set('catname', $name);
+    $this->db->where('id', $id);
+    $this->db->update('categories');
+
+    $this->session->set_flashdata('success', $name . '  başarıyla Güncellendi');
+    redirect(base_url('kategoriler'));
+  }
+
   public function deleteblog($id)
   {
     $this->db->where('id', $id);
@@ -140,8 +174,11 @@ class Admin_model extends CI_Model
     );
     $this->db->update('experience', $data);
     */
-    $this->session->set_flashdata('success', $name.  '     başarıyla güncellendi!');
+    $this->session->set_flashdata('success', $name .  '     başarıyla güncellendi!');
   }
+
+
+
 
   // ------------------------------------------------------------------------
 

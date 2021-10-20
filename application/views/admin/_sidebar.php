@@ -43,6 +43,10 @@
 							</li>
 							<li> <a href="<?= base_url('calismaekle') ?>"><i class="bx bx-right-arrow-alt"></i>Yeni Ekle</a>
 							</li>
+							<li> <a href="<?= base_url('kategoriler') ?>"><i class="bx bx-right-arrow-alt"></i>Kategoriler</a>
+							</li>
+							<li> <a href="<?= base_url('kategoriekle') ?>"><i class="bx bx-right-arrow-alt"></i>Kategori Ekle</a>
+							</li>
 						</ul>
 					</li>
 					<li>

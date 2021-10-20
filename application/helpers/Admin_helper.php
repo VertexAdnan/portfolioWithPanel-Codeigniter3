@@ -51,6 +51,21 @@ if(!function_exists('getexp'))
   }
 }
 
+if(!function_exists('getcatname'))
+{
+  function getcatname()
+  {
+    $ci = &get_instance();
+    $id = $ci->uri->segment(2);
+    $ci->db->select('catname');
+    $ci->db->from('categories');
+    $res = $ci->db->get();
+    $result = $res->row();
+
+    return $result;
+  }
+}
+
 // ------------------------------------------------------------------------
 
 /* End of file Admin_helper.php */

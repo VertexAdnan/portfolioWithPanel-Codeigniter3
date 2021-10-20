@@ -36,7 +36,13 @@ $route = array(
     'tecrube' => 'admin/experience',
     'tecrubeekle' => 'admin/addexperience',
     'expsil/(:num)' => 'admin/expdelete',
-    'expedit/(:num)' => 'admin/expedit'
+    'expedit/(:num)' => 'admin/expedit',
+    // categories
+    'kategoriler' => 'admin/categories',
+    'kategoriekle' => 'admin/addcategory',
+    'kategoriduzenle/(:num)' => 'admin/editcat',
+    'kategorisil/(:num)' => 'admin/removecat'
+    //
 
 );
 $route['404_override'] = '';

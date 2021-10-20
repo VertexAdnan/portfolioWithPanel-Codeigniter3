@@ -310,28 +310,28 @@ class Admin extends CI_Controller
     $this->load->view('admin/changebackground');
     $this->load->view('admin/_footer');
     if (isset($_POST['save'])) {
-        $config['upload_path']          = './assets/site/img/';
-        $config['allowed_types']        = 'gif|jpg|png';
+      $config['upload_path']          = './assets/site/img/';
+      $config['allowed_types']        = 'gif|jpg|png';
 
-        $this->load->library('upload');
-        $this->upload->initialize($config);
-        if (!$this->upload->do_upload('file')) {
-            $error = array('error' => $this->upload->display_errors());
+      $this->load->library('upload');
+      $this->upload->initialize($config);
+      if (!$this->upload->do_upload('file')) {
+        $error = array('error' => $this->upload->display_errors());
 
-            $this->session->set_flashdata('error', $error);
+        $this->session->set_flashdata('error', $error);
 
-            print_r($error);
-            die();
-            redirect(base_url('logodegis'));
-        } else {
-            $data = array('upload_data' => $this->upload->data());
-            $filedata = $this->upload->data();
-            $filename = $filedata['file_name'];
+        print_r($error);
+        die();
+        redirect(base_url('logodegis'));
+      } else {
+        $data = array('upload_data' => $this->upload->data());
+        $filedata = $this->upload->data();
+        $filename = $filedata['file_name'];
 
-            $this->db->set('background', $filename);
-            $this->session->set_flashdata('success', $filename. '  başarıyla kaydedildi');
-            redirect(base_url('arkaplandegis'));
-        }
+        $this->db->set('background', $filename);
+        $this->session->set_flashdata('success', $filename . '  başarıyla kaydedildi');
+        redirect(base_url('arkaplandegis'));
+      }
     }
   }
 
@@ -412,8 +412,7 @@ class Admin extends CI_Controller
     $this->load->view('admin/socialmedia');
     $this->load->view('admin/_footer');
 
-    if(isset($_POST['save']))
-    {
+    if (isset($_POST['save'])) {
       $this->db->set('facebook', $this->input->post('facebook'));
       $this->db->set('instagram', $this->input->post('instagram'));
       $this->db->set('behance', $this->input->post('behance'));
@@ -426,7 +425,7 @@ class Admin extends CI_Controller
 
   public function experience()
   {
-    $data = array (
+    $data = array(
       'experience' => $this->admin_model->getexperience()
     );
     $this->load->view('admin/experience', $data);
@@ -438,9 +437,8 @@ class Admin extends CI_Controller
     $this->load->view('admin/addexperience');
     $this->load->view('admin/_footer');
 
-    if(isset($_POST['add']))
-    {
-      $data = array (
+    if (isset($_POST['add'])) {
+      $data = array(
         'name' => $this->input->post('name'),
         'exp' => $this->input->post('exp')
       );
@@ -462,14 +460,49 @@ class Admin extends CI_Controller
     $this->load->view('admin/expedit');
     $this->load->view('admin/_footer');
 
-    if(isset($_POST['save']))
-    {
+    if (isset($_POST['save'])) {
       $name = $this->input->post('name');
       $exp = $this->input->post('exp');
       $id = $this->uri->segment(2);
       // also we can use model for run sql queries...
       $this->admin_model->setexp($name, $exp, $id);
     }
+  }
+
+  public function categories()
+  {
+    $data = array(
+      'categories' => $this->admin_model->getcategories()
+    );
+    $this->load->view('admin/categories', $data);
+    $this->load->view('admin/_footer');
+  }
+
+  public function addcategory()
+  {
+    $this->load->view('admin/addcat');
+    $this->load->view('admin/_footer');
+
+    if (isset($_POST['add'])) {
+      $name = $this->input->post('name');
+      $this->admin_model->addcat($name);
+    }
+  }
+  public function editcat()
+  {
+    $this->load->view('admin/editcat');
+    $this->load->view('admin/_footer');
+
+    if (isset($_POST['save'])) {
+      $name = $this->input->post('name');
+      $this->admin_model->savecat($name);
+    }
+  }
+
+  public function removecat()
+  {
+    $id = $this->uri->segment(2);
+    $this->admin_model->removecat($id);
   }
 }
 
